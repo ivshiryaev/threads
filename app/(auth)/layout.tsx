@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
-  title: 'Threads',
-  description: 'Threads app',
+  title: 'Authorization',
+  description: 'Authorization - Threads app',
 }
 
 export default function RootLayout({
