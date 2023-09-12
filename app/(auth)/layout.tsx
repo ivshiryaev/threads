@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
-  title: 'Threads',
-  description: 'A Next.js 13 Threads app',
+  title: 'Authorization',
+  description: 'Authorization - Threads app',
 }
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className='bg-dark-1'>
+      <html lang="en">
         <body>
           {children}
         </body>
