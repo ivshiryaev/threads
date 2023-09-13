@@ -1,6 +1,22 @@
-function Page() {
+import AccountProfile from '@/components/forms/AccountProfile'
+import { currentUser } from '@clerk/nextjs'
+
+async function Page() {
+	const user = await currentUser()
+
+	const userInfo = {}
+	
+	const userData = {
+		id: user?.id,
+		objectId: userInfo?.id,
+		username: userInfo?.username || user?.username,
+		name: userInfo?.name || user?.firstname || '',
+		bio: userInfo?.bio || '',
+		image: userInfo?.image || user.imageUrl,
+	}
+
 	return (
-		<main 
+		<main
 			className='
 				flex flex-col justify-start
 				gap-8
@@ -19,7 +35,10 @@ function Page() {
 				</p>
 			</div>
 			<section className='bg-dark-2 p-10 rounded-lg'>
-				
+				<AccountProfile
+					user={ userData }
+					btnTitle='Continue'
+				/>
 			</section>
 		</main>
 	)
