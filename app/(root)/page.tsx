@@ -1,9 +1,8 @@
-import { UserButton } from "@clerk/nextjs";
- 
+
 export default function Home() {
   return (
-    <div>
-      <UserButton afterSignOutUrl="/"/>
+    <div className='text-white text-heading3-bold'>
+      Home
     </div>
   )
 }
