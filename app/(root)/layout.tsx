@@ -22,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <Topbar/>
-          <main>
+          <main className='flex'>
             <LeftSidebar/>
             <section className='main-container'>
               <div className='w-full max-w-4xl'>
