@@ -211,7 +211,7 @@ function AccountProfile({ user, btnTitle } : Props) {
 					Submit
 				</Button>
 			</form>
-	    </Form>
+    </Form>
 	)
 }
 
