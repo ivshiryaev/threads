@@ -1,9 +1,13 @@
+/**
+ * @type {import('next').NextConfig}
+ */
+
 module.exports = {
+  experimental: {
+      serverActions: true,
+      serverComponentsExternalPackages: ['@acme/ui'],
+    },
   images: {
-	experimental: {
-		serverActions: true,
-		serverComponentsExternalPackages: ['@acme/ui'],
-	},
     remotePatterns: [
       {
         protocol: 'https',
