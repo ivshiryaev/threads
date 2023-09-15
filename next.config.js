@@ -5,7 +5,7 @@
 module.exports = {
   experimental: {
       serverActions: true,
-      serverComponentsExternalPackages: ['@acme/ui'],
+      serverComponentsExternalPackages: ['@acme/ui', 'mongoose'],
     },
   images: {
     remotePatterns: [
