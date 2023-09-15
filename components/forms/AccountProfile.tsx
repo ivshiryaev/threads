@@ -1,12 +1,20 @@
 "use client"
 
 import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
+
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { UserValidation } from '@/lib/validations/user'
 
 import { useState } from 'react'
 import { ChangeEvent } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { UserValidation } from '@/lib/validations/user'
+
+import { isBase64Image } from '@/lib/utils'
+import { useUploadThing } from '@/lib/uploadthing'
+import { updateUser } from '@/lib/actions/user.actions.ts'
+
 import {
   Form,
   FormControl,
@@ -19,9 +27,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import * as z from 'zod'
-import { isBase64Image } from '@/lib/utils'
-import { useUploadThing } from '@/lib/uploadthing'
 
 interface Props {
 	user: {
@@ -37,15 +42,21 @@ interface Props {
 
 function AccountProfile({ user, btnTitle } : Props) {
 	const [files, setFiles] = useState<File[]>([])
-	const { startUpload } = useUploadThing('media')
+	const { startUpload } = useUploadThing('media', {
+		onClientUploadComplete: () => {
+			alert('Upload complete')
+		}
+	})
+	const router = useRouter()
+	const pathname = usePathname()
 
-	const form = useForm({
+	const form = useForm<z.infer<typeof UserValidation>>({
 		resolver: zodResolver(UserValidation),
 		defaultValues: {
-			profile_photo: user?.image || '',
-			name: user?.name || '',
-			username: user?.username || '',
-			bio:user?.bio || '',
+			profile_photo: user?.image ? user?.image : '',
+			name: user?.name ? user?.name : '',
+			username: user?.username ? user?.username : '',
+			bio:user?.bio ? user?.bio : '',
 		}
 	})
 
@@ -67,7 +78,6 @@ function AccountProfile({ user, btnTitle } : Props) {
 
 			fileReader.onload = async(event) => {
 				const imageDataUrl = event.target?.result?.toString() || ''
-
 				fieldChange(imageDataUrl)
 			}
 
@@ -82,10 +92,25 @@ function AccountProfile({ user, btnTitle } : Props) {
 
 		if(hasImageChanged){
 			const imgRes = await startUpload(files)
-
+			
 			if(imgRes && imgRes[0].fileUrl){
 				values.profile_photo = imgRes[0].fileUrl
 			}
+		}
+
+		await updateUser({
+			userId: user.id,
+			username: values.username,
+			name: values.name,
+			bio: values.bio,
+			image: values.profile_photo,
+			path: pathname,
+		})
+
+		if(pathname === '/profile/edit'){
+			router.back()
+		} else {
+			router.push('/')
 		}
 	}
 
