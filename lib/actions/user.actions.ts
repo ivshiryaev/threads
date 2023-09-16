@@ -47,3 +47,16 @@ export async function updateUser({
 		throw new Error(`Failed to update/create user: ${e.message}`)
 	}
 }
+
+export async function fetchUser(userId: string){
+	await connectToDB()
+
+	try{
+		const user = await User.findOne({
+			id: userId 
+		})
+		return user
+	} catch(error) {
+		throw new Error(`Can't find user: ${userId}, error: ${error}`)
+	}
+}
