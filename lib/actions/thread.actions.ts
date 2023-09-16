@@ -38,3 +38,34 @@ export async function createThread({
 		throw new Error(`Error creating Thread ${error.message}`)
 	}
 }
+
+export async function fetchThreads(pageNumber = 1, pageSize = 20){
+	await connectToDB()
+
+	const skipAmount = (pageNumber - 1) * pageSize
+
+	// fetch posts that have no parents 
+	const threadsQuery = Thread
+		.find({ parentId: { $in: [null, undefined] } })
+		.sort({ createdAt: 'desc' })
+		.skip(skipAmount)
+		.limit(pageSize)
+		.populate({ path: 'author', model: User })
+		.populate({
+			path: 'children',
+			populate:{
+				path: 'author',
+				model: User,
+				select: '_id name parentId image',
+			}
+		})
+
+	const totalThreadsCount = await Thread
+		.countDocuments({ parentId: { $in: [null, undefined] }})
+
+	const threads = await threadsQuery.exec() 
+
+	const isNext = totalThreadsCount > skipAmount + threads.length
+
+	return { threads, isNext }
+}
