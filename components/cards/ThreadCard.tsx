@@ -47,12 +47,14 @@ function ThreadCard({
 			'
 		>
 			<div className='flex flex-col items-center gap-2'>
-				<Link href={`/profile/${author.id}`}>
+				<Link 
+					href={`/profile/${author.id}`}
+					className='relative w-12 h-12'
+				>
 					<Image 
 						alt={author.username}
 						src={author.image}
-						width={44}
-						height={44}
+						fill
 						className='rounded-full'
 					/>
 				</Link>
