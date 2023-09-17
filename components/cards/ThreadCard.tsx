@@ -34,17 +34,22 @@ function ThreadCard({
 	community,
 	createdAt,
 	comments,
+	isComment,
 } : Props) {
 	return (
 		<article 
-			className='
+			className={`
 				w-full
 				rounded-xl
 				p-6
 				flex gap-3
-				bg-dark-2
 				text-white
-			'
+				${isComment ? 
+					''
+					:
+					'bg-dark-2'
+				}
+			`}
 		>
 			<div className='flex flex-col items-center gap-2'>
 				<Link 
@@ -73,10 +78,10 @@ function ThreadCard({
 				>
 					{author.username}
 				</Link>
-				<p className='text-small-regular'>
+				<p className=''>
 					{content}
 				</p>
-				<div className='flex gap-1 mt-2'>
+				<div className='flex gap-1 mt-3'>
 					<Image
 						alt='heart-icon'
 						src='/assets/heart-gray.svg'
