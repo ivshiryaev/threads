@@ -3,6 +3,7 @@ import { currentUser } from '@clerk/nextjs'
 import { fetchUser } from '@/lib/actions/user.actions'
 import { redirect } from 'next/navigation'
 import { fetchThreadById } from '@/lib/actions/thread.actions'
+import { Comment } from '@/components/forms/Comment'
 
 async function Thread({ params } : { params : { id : string }}) {
 	if(!params.id) return null
@@ -16,7 +17,9 @@ async function Thread({ params } : { params : { id : string }}) {
 	const thread = await fetchThreadById({id: params.id})
 
 	return (
-		<section className='relative'>
+		<section 
+			className='relative flex flex-col gap-6'
+		>
 			<ThreadCard 
 		        key={thread._id}
 		        id={thread._id}
@@ -28,6 +31,13 @@ async function Thread({ params } : { params : { id : string }}) {
 		        createdAt={thread.createdAt}
 		        comments={thread.comments}
 			/>
+			<div>
+				<Comment
+					threadId={thread.id}
+					currentUserId={userInfo._id.toString()}
+					currentUserImage={user.imageUrl}
+				/>
+			</div>
 		</section>
 	)
 }
