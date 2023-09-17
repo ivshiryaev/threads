@@ -68,7 +68,10 @@ function PostThread({ userId } : Props) {
 					     >
 				        <Textarea
 				        	rows={13}
-				        	className='account-form_input'
+				        	className='
+										account-form_input
+										p-6
+									'
 				        	{...field} 
 				        />
 				      </FormControl>
