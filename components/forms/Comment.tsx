@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { CommentValidation } from '@/lib/validations/thread'
-// import { createThread } from '@/lib/actions/thread.actions'
+import { addCommentToThread } from '@/lib/actions/thread.actions'
 
 import {
   Form,
@@ -45,13 +45,13 @@ function Comment({
 	})
 
 	async function onSubmit(values: z.infer<typeof ThreadValidation>){
-		// await createThread({
-		// 	text: values.thread,
-		// 	author: userId,
-		// 	communityId: null,
-		// 	path: pathname,
-		// })
-		// router.push('/')
+		await addCommentToThread({
+			threadId: threadId,
+			commentText: values.thread,
+			userId: currentUserId,
+			path: pathname,
+		})
+		form.reset()
 	}
 
 	return (
@@ -71,7 +71,7 @@ function Comment({
 				      <FormLabel className='w-11 h-11 relative'>
 				      	<Image 
 				      		src={currentUserImage}
-				      		alt={currentUser}
+				      		alt='Profile photo'
 				      		fill
 				      		className='rounded-full object-cover'
 				      	/>
