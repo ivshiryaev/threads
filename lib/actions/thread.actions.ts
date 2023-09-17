@@ -79,7 +79,7 @@ export async function fetchThreadById({id} : { id: string }){
 			.populate({
 				path: 'author',
 				model: User,
-				select: '_id username image',
+				select: '_id id username image',
 			})
 			.populate({
 				path: 'children',
@@ -87,22 +87,58 @@ export async function fetchThreadById({id} : { id: string }){
 					{
 						path: 'author',
 						model: User,
-						select: '_id id name parentId image'
+						select: '_id id username parentId image',
 					},
 					{
 						path: 'children',
-						model: 'Thread',
+						model: Thread,
 						populate: {
 							path: 'author',
 							model: User,
-							select: '_id id name parentId image'
-						}
-					}
-				]
+							select: '_id id username parentId image',
+						},
+					},
+				],
 			})
 			.exec()
 		return thread
 	} catch(error: any) {
 		throw new Error(`Error fetching thread:${id}, error: ${error}`)
+	}
+}
+
+export async function addCommentToThread({ 
+	threadId,
+	commentText,
+	userId, 
+	path,
+} : {
+	threadId: string,
+	commentText: string,
+	userId: string, 
+	path: string,
+}){
+	connectToDB()
+
+	try {
+		const originalThread = await Thread.findById(threadId)
+		if(!originalThread) throw new Error('Thread not found')
+
+		const commentThread = new Thread({
+			text: commentText,
+			author: userId,
+			parentId: threadId,
+		})
+
+		const savedCommentThread = await commentThread.save()
+
+		originalThread.children.push(savedCommentThread._id)
+
+		await originalThread.save()
+
+		console.log('comment added !')
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error(`Can't comment the thread ${error}`)
 	}
 }
