@@ -21,22 +21,38 @@ async function Thread({ params } : { params : { id : string }}) {
 			className='relative flex flex-col gap-6'
 		>
 			<ThreadCard 
-		        key={thread._id}
-		        id={thread._id}
-		        currentUserId={user?.id}
-		        parentId={thread?.parentId}
-		        content={thread.text}
-		        author={thread.author}
-		        community={thread.community}
-		        createdAt={thread.createdAt}
-		        comments={thread.comments}
+        key={thread._id}
+        id={thread._id}
+        currentUserId={user?.id}
+        parentId={thread?.parentId}
+        content={thread.text}
+        author={thread.author}
+        community={thread.community}
+        createdAt={thread.createdAt}
+        comments={thread.comments}
 			/>
-			<div>
-				<Comment
-					threadId={thread.id}
-					currentUserId={userInfo._id.toString()}
-					currentUserImage={user.imageUrl}
-				/>
+			<Comment
+				threadId={thread.id}
+				currentUserId={userInfo._id.toString()}
+				currentUserImage={userInfo.image}
+			/>
+			<div className='text-white flex flex-col gap-6'>
+				{thread.children.map(childItem => {
+					return(
+						<ThreadCard
+							key={childItem._id}	
+							id={childItem._id}
+							currentUserId={childItem?.id}
+							parentId={childItem?.parentId}
+							content={childItem.text}
+							author={childItem.author}
+							community={childItem.community}
+							createdAt={childItem.createdAt}
+							comments={childItem.comments}
+							isComment
+						/>
+					)
+				})}
 			</div>
 		</section>
 	)
