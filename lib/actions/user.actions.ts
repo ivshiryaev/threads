@@ -3,6 +3,7 @@
 import User from '../models/user.model'
 import Thread from '../models/thread.model'
 import { connectToDB } from '../mongoose'
+import { SortOrder, FilterQuery } from 'mongoose'
 
 interface Params {
 	userId: string,
@@ -22,7 +23,7 @@ export async function updateUser({
 	path,
 } : Params): Promise<void> {
 	
-	await connectToDB()
+	connectToDB()
 
 	try {
 		await User.findOneAndUpdate(
@@ -50,14 +51,14 @@ export async function updateUser({
 }
 
 export async function fetchUser(userId: string){
-	await connectToDB()
+	connectToDB()
 
 	try{
 		const user = await User.findOne({
 			id: userId 
 		})
 		return user
-	} catch(error) {
+	} catch(error: any) {
 		throw new Error(`Can't find user: ${userId}, error: ${error}`)
 	}
 }
@@ -87,7 +88,57 @@ export async function fetchUserPosts(userId: string){
 				],
 			})
 		return user.threads
-	} catch(error) {
+	} catch(error: any) {
 		throw new Error(`Can't fetch userPosts ${error}`)
+	}
+}
+
+export async function fetchUsers({
+	userId,
+	searchString = '',
+	pageNumber = 1,
+	pageSize = 20,
+	sortBy = 'desc',
+} : {
+	userId: string,
+	searchString?: string,
+	pageNumber?: number,
+	pageSize?: number,
+	sortBy?: SortOrder,
+}){
+	try{
+		connectToDB()
+
+		const skipAmount = (pageNumber - 1) * pageSize
+
+		const regex = new RegExp(searchString, 'i')
+
+		const query: FiterQuery<typeof User> = {
+			id: { $ne: userId },
+		}
+
+		if(searchString.trim() !== '') {
+			query.$or = [
+				{ username: { $regex: regex }},
+				{ name: { $regex: regex }},
+			]
+		}
+
+		const sortOptions = { createdAt: sortBy }
+
+		const usersQuery = User.find(query)
+			.sort(sortOptions)
+			.skip(skipAmount)
+			.limit(pageSize)
+
+		const totalUsersCount = await User.countDocuments(query)
+
+		const users = await usersQuery.exec()
+
+		const isNext = totalUsersCount > skipAmount + users.length
+
+		return { users, isNext }
+	} catch (error: any) {
+		throw new Error(`Can't fetch users ${error.message}`)
 	}
 }
