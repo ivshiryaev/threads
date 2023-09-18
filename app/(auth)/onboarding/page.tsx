@@ -1,6 +1,7 @@
 import AccountProfile from '@/components/forms/AccountProfile'
 import { currentUser } from '@clerk/nextjs'
 import { fetchUser } from '@/lib/actions/user.actions'
+import { redirect } from 'next/navigation'
 
 async function Page() {
 	const user = await currentUser()
@@ -15,6 +16,8 @@ async function Page() {
 		bio: userInfo?.bio || '',
 		image: userInfo?.image || user.imageUrl,
 	}
+
+	if(userInfo?.onboarded) return redirect('/')
 
 	return (
 		<main
