@@ -36,7 +36,7 @@ async function Thread({ params } : { params : { id : string }}) {
 				currentUserId={userInfo._id.toString()}
 				currentUserImage={userInfo.image}
 			/>
-			<div className='text-white flex flex-col gap-6'>
+			<div className='text-white flex flex-col'>
 				{thread.children.map(childItem => {
 					return(
 						<ThreadCard
