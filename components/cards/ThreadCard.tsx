@@ -45,13 +45,13 @@ function ThreadCard({
 				flex gap-3
 				text-white
 				${isComment ? 
-					''
+					'py-0'
 					:
 					'bg-dark-2'
 				}
 			`}
 		>
-			<div className='flex flex-col items-center gap-2'>
+			<div className='flex flex-col items-center'>
 				<Link 
 					href={`/profile/${author.id}`}
 					className='relative w-12 h-12'
@@ -81,7 +81,10 @@ function ThreadCard({
 				<p className=''>
 					{content}
 				</p>
-				<div className='flex gap-1 mt-3'>
+				<div className={`
+					flex gap-1 mt-3
+					${isComment && 'mb-8'}
+				`}>
 					<Image
 						alt='heart-icon'
 						src='/assets/heart-gray.svg'
