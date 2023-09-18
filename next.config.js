@@ -19,6 +19,10 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: 'utfs.io',
+      },
+      {
+        protocol: 'https',
         hostname: 'placehold.co',
       },
     ],
