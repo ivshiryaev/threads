@@ -1,6 +1,7 @@
 "use server"
 
 import User from '../models/user.model'
+import Thread from '../models/thread.model'
 import { connectToDB } from '../mongoose'
 
 interface Params {
@@ -58,5 +59,35 @@ export async function fetchUser(userId: string){
 		return user
 	} catch(error) {
 		throw new Error(`Can't find user: ${userId}, error: ${error}`)
+	}
+}
+
+export async function fetchUserPosts(userId: string){
+	try{
+		connectToDB()
+
+		const user = await User.findOne({ id: userId })
+			.populate({
+				path: 'threads',
+				model: Thread,
+				populate: [
+					{
+						path: 'children',
+						model: Thread,
+						populate: {
+							path: 'author',
+							model: User,
+							select: 'username id _id name image',
+						},
+					},
+					{
+						path:'author',
+						model: User,
+					}
+				],
+			})
+		return user.threads
+	} catch(error) {
+		throw new Error(`Can't fetch userPosts ${error}`)
 	}
 }
