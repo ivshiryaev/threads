@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/tabs"
 import { profileTabs } from '@/constants'
 import Image from 'next/image'
-
+import ThreadsTab from '@/components/shared/ThreadsTab'
 
 async function Profile({ params } : { params : { id : string }}) {
 	const user = await currentUser()
@@ -22,14 +22,14 @@ async function Profile({ params } : { params : { id : string }}) {
 	return (
 		<div className='flex flex-col gap-6 text-white'>
 			<ProfileHeader
-				accountId={userInfo.id}
+				accountId={params.id}
 				authUserId={user.id}
 				name={userInfo.name}
 				username={userInfo.username}
 				imgUrl={userInfo.image}
 				bio={userInfo.bio}
 			/>
-			<Tabs defaultValue="threads">
+			<Tabs defaultValue="threads" className='flex flex-col gap-4'>
 			  <TabsList className='bg-dark-2 gap-1 w-full rounded-md p-1'>
 			  	{profileTabs.map(tab => (
 				    <TabsTrigger
@@ -62,7 +62,10 @@ async function Profile({ params } : { params : { id : string }}) {
 			  	))}
 			  </TabsList>
 			  <TabsContent value="threads">
-			  	Threads
+			  	<ThreadsTab
+			  		currentUserId={user.id}
+			  		accountId={params.id}
+			  	/>
 			  </TabsContent>
 			</Tabs>
 		</div>
