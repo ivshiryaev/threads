@@ -22,8 +22,8 @@ const threadSchema = new mongoose.Schema({
 	},
 	children:[{
 		type: mongoose.Schema.Types.ObjectID,
-		ref: 'Thread'
-	}]
+		ref: 'Thread',
+	}],
 })
 
 const Thread = mongoose.models.Thread || mongoose.model('Thread', threadSchema)

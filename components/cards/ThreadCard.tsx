@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { isThreadLikedByUser, switchLike, getLikesCount } from '@/lib/actions/like.actions'
+import Like from '@/components/feature/Like'
+import { revalidatePath } from 'next/navigation'
 
 interface Props{
 	id : string,
@@ -25,7 +28,7 @@ interface Props{
 	isComment?: boolean,
 }
 
-function ThreadCard({
+async function ThreadCard({
 	id,
 	currentUserId,
 	parentId,
@@ -36,6 +39,12 @@ function ThreadCard({
 	comments,
 	isComment,
 } : Props) {
+	const isLiked = await isThreadLikedByUser({
+		userId: currentUserId,
+		threadId: id,
+	})
+
+	const likesCount = await getLikesCount(id)
 
 	let displayedComments = []
 
@@ -93,11 +102,10 @@ function ThreadCard({
 						flex gap-1 mt-3
 						${isComment && 'mb-8'}
 					`}>
-						<Image
-							alt='heart-icon'
-							src='/assets/heart-gray.svg'
-							width={24}
-							height={24}
+						<Like 
+							userId={currentUserId} 
+							threadId={id} 
+							isLiked={isLiked}
 						/>
 						<Link href={`/thread/${id}`}>
 							<Image
@@ -110,35 +118,40 @@ function ThreadCard({
 					</div>
 				</div>
 			</div>
-			{comments && comments.length > 0 && (
-				<div className='flex gap-3 items-center'>
-					<Link 
-						className='flex'
-						href={`/thread/${id}`}
-					>
-						{displayedComments.map(comment => (
-							<div className='mr-[-8px]'>
-								<Image
-									className='rounded-full'
-									src={comment.author.image}
-									alt={comment.author.username}
-									width={20}
-									height={20}
-								/>
-							</div>
-						))}
-					</Link>
-					<Link 
-						className='ml-2 text-sm text-light-4'
-						href={`/thread/${id}`}
-					>
-						{comments.length} replies
-					</Link>
-					<div className='text-sm text-light-4'>
-						likes
-					</div>
-				</div>
-			)}
+			<div className='flex gap-3 items-center'>
+				{comments && comments.length > 0 && (
+					<>
+						<Link 
+							className='flex'
+							href={`/thread/${id}`}
+						>
+							{displayedComments.map(comment => (
+								<div className='mr-[-8px]'>
+									<Image
+										className='rounded-full'
+										src={comment.author.image}
+										alt={comment.author.username}
+										width={20}
+										height={20}
+									/>
+								</div>
+							))}
+						</Link>
+						<Link 
+							className='ml-2 text-sm text-light-4'
+							href={`/thread/${id}`}
+						>
+							{comments.length} 
+							{comments.length == 1 ? ' reply' : ' replies'}
+						</Link>
+					</>
+				)}
+				{likesCount > 0 && (
+					<p className='text-sm text-light-4'>
+						{likesCount} likes
+					</p>
+				)}
+			</div>
 		</article>
 	)
 }
