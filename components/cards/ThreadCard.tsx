@@ -126,7 +126,10 @@ async function ThreadCard({
 							href={`/thread/${id}`}
 						>
 							{displayedComments.map(comment => (
-								<div className='mr-[-8px]'>
+								<div 
+									className='mr-[-8px]' 
+									key={comment._id}
+								>
 									<Image
 										className='rounded-full'
 										src={comment.author.image}
