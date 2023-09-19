@@ -1,6 +1,6 @@
 import '@/app/globals.css'
-import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata } from 'next'
 
 import Topbar from '@/components/shared/Topbar'
 import Bottombar from '@/components/shared/Bottombar'

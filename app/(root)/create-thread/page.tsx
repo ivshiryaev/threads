@@ -12,7 +12,7 @@ async function Page() {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<p className='text-white text-heading3-bold'>Create thread</p>
+			<h1 className='text-heading3-bold text-white'>Create thread</h1>
 			<PostThread userId={userInfo._id.toString()}/>
 		</div>
 	)

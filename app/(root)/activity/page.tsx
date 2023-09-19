@@ -15,6 +15,8 @@ async function Activity() {
 
 	return (
 		<section className='flex flex-col gap-6'>
+			<h1 className='text-heading3-bold text-white'>Activity</h1>
+
 			{replies.length > 0 ? (
 				<>
 					{replies.map((reply) => (

@@ -1,6 +1,6 @@
 function RightSidebar(){
 	return (
-		<section className='custom-scrollbar rightsidebar'>
+		<aside className='custom-scrollbar rightsidebar'>
 			<div className='
 					flex flex-1 flex-col
 					justify-start
@@ -27,7 +27,7 @@ function RightSidebar(){
 					Suggested users
 				</h3>
 			</div>		
-		</section>
+		</aside>
 	)
 }
 

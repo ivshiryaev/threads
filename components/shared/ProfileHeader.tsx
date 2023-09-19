@@ -18,30 +18,29 @@ function ProfileHeader({
 	bio,
 } : Props) {
 	return (
-		<div className='
+		<article className='
 				w-full 
 				flex flex-col justify-start
 				gap-4
 			'
 		>
-		<div className='flex gap-2 items-center'>
-			<Image
-				className='rounded-full'
-				src={imgUrl}
-				alt={username}
-				width={72}
-				height={72}
-			/>
-			<div>
-				<p className='text-xl font-semibold'>{name}</p>
-				<p className='text-sm text-neutral-400'>@{username}</p>
+			<div className='flex gap-2 items-center'>
+				<Image
+					className='rounded-full'
+					src={imgUrl}
+					alt={username}
+					width={72}
+					height={72}
+				/>
+				<div>
+					<p className='text-xl font-semibold'>{name}</p>
+					<p className='text-sm text-neutral-400'>@{username}</p>
+				</div>
 			</div>
-		</div>
-		<div className='text-sm'>
-			{bio}
-		</div>
-		<div className='grow h-0.5 bg-neutral-800 rounded-full'/>
-		</div>
+			<div className='text-sm'>
+				{bio}
+			</div>
+		</article>
 	)
 }
 

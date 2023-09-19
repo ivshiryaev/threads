@@ -20,7 +20,7 @@ async function Search() {
 
 	return (
 		<section className='flex flex-col grow gap-6'>
-			<p className='text-heading3-bold text-white'>Search</p>
+			<h1 className='text-heading3-bold text-white'>Search</h1>
 
 			{/*Search bar*/}
 

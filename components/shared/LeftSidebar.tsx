@@ -12,7 +12,7 @@ function LeftSidebar(){
 	const { userId } = useAuth()
 
 	return (
-		<section className='custom-scrollbar leftsidebar'>
+		<aside className='custom-scrollbar leftsidebar'>
 			<div className='
 					px-6
 					w-full 
@@ -70,7 +70,7 @@ function LeftSidebar(){
 					</SignOutButton>
 				</SignedIn>
 			</div>
-		</section>
+		</aside>
 	)
 }
 
