@@ -17,7 +17,7 @@ async function ThreadsTab({
 	if(!threads) return redirect('/')
 
 	return (
-		<section>
+		<section className='flex flex-col gap-6'>
 			{threads.map((thread: any) => (
 				<ThreadCard
 					key={thread._id}
