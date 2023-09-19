@@ -1,6 +1,7 @@
 import { currentUser } from '@clerk/nextjs'
 import { fetchUser } from '@/lib/actions/user.actions'
 import { PostThread } from'@/components/forms/PostThread'
+import { redirect } from 'next/navigation'
 
 async function Page() {
 	const user = await currentUser()

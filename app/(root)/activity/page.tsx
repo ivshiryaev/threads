@@ -1,5 +1,6 @@
 import { fetchUser, fetchUsers, getActivity } from '@/lib/actions/user.actions'
 import { currentUser } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 

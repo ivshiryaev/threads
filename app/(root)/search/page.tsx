@@ -1,6 +1,7 @@
 import { fetchUser, fetchUsers } from '@/lib/actions/user.actions'
 import { currentUser } from '@clerk/nextjs'
 import UserCard from '@/components/cards/UserCard'
+import { redirect } from 'next/navigation'
 
 async function Search() {
 	const user = await currentUser()
