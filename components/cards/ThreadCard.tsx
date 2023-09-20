@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { isThreadLikedByUser, switchLike, getLikesCount } from '@/lib/actions/like.actions'
 import Like from '@/components/feature/Like'
 import { revalidatePath } from 'next/navigation'
+import { formatDateString } from '@/lib/utils'
 
 interface Props{
 	id : string,
@@ -52,6 +53,8 @@ async function ThreadCard({
 		displayedComments = comments.slice(0,3)
 	}
 
+	const displayDate = formatDateString(createdAt)
+
 	return (
 		<article 
 			className={`
@@ -89,12 +92,15 @@ async function ThreadCard({
 						flex flex-col gap-1 flex-1
 					'
 				>
-					<Link 
-						className='w-fit font-semibold'
-						href={`/profile/${author.id}`}
-					>
-						{author.username}
-					</Link>
+					<div className='flex justify-between'>
+						<Link 
+							className='w-fit font-semibold'
+							href={`/profile/${author.id}`}
+						>
+							{author.username}
+						</Link>
+						<p className='text-sm text-light-4'>{displayDate}</p>
+					</div>
 					<p className=''>
 						{content}
 					</p>
@@ -151,7 +157,8 @@ async function ThreadCard({
 				)}
 				{likesCount > 0 && (
 					<p className='text-sm text-light-4'>
-						{likesCount} likes
+						{likesCount}
+						{likesCount == 1 ? ' like' : ' likes'}
 					</p>
 				)}
 			</div>
