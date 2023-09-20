@@ -34,6 +34,7 @@ function Like({
 				src='/assets/heart-filled.svg'
 				width={24}
 				height={24}
+				priority
 			/>
 		) : (
 			<Image
@@ -43,6 +44,7 @@ function Like({
 				src='/assets/heart-gray.svg'
 				width={24}
 				height={24}
+				priority
 			/>
 		)}
 		</>

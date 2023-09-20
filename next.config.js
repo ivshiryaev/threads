@@ -18,6 +18,10 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: '**.clerk.dev',
+      },
+      {
+        protocol: 'https',
         hostname: 'uploadthing.com',
       },
       {
