@@ -97,7 +97,7 @@ function Comment({
 				    </FormItem>
 				  )}
 				/>
-				<Button type='submit' className='bg-primary-500 rounded-full'>
+				<Button type='submit' className='bg-primary-500 px-6'>
 					Reply
 				</Button>
 			</form>

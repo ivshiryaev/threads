@@ -33,14 +33,16 @@ async function Activity() {
 									bg-dark-2
 								'
 							>
-								<Image
-									src={reply.author.image}
-									alt={reply.author.name}
-									width={48}
-									height={48}
-								/>
+								<div className='relative w-10 h-10'>
+									<Image
+										className='object-cover rounded-full'
+										src={reply.author.image}
+										alt={reply.author.name}
+										fill
+									/>
+								</div>
 								<p className='font-semibold text-primary-500'>
-									{reply.author.username}
+									@{reply.author.username}
 								</p>
 								<span>
 									Replied to your thread !

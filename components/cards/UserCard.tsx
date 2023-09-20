@@ -23,13 +23,14 @@ function UserCard({
 
 	return (
 		<article className='grow flex gap-3 items-center'>
-			<Image
-				className='rounded-full'
-				src={imgUrl}
-				alt={username}
-				width={48}
-				height={48}
-			/>
+			<div className='relative w-16 h-16'>
+				<Image
+					className='rounded-full object-cover'
+					src={imgUrl}
+					alt={username}
+					fill
+				/>
+			</div>
 			<div className='flex-1 gap-0'>
 				<p className='font-semibold text-white text-lg leading-tight'>{name}</p>
 				<p className='text-neutral-300 text-sm'>@{username}</p>

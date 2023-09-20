@@ -64,7 +64,7 @@ async function Profile({ params } : { params : { id : string }}) {
 			  <TabsContent value="threads">
 			  	<ThreadsTab
 			  		currentUserId={userInfo._id.toString()}
-			  		accountId={params.id}
+			  		accountId={params.id.toString()}
 			  	/>
 			  </TabsContent>
 			</Tabs>
