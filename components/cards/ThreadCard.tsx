@@ -99,7 +99,7 @@ async function ThreadCard({
 						>
 							{author.username}
 						</Link>
-						<p className='text-sm text-light-4'>{displayDate}</p>
+						<p className='text-sm text-light-4 max-xs:hidden'>{displayDate}</p>
 					</div>
 					<p className=''>
 						{content}

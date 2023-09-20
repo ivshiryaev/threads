@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { UserButton, UserProfile } from '@clerk/nextjs'
+import ProfileSettings from '@/components/feature/ProfileSettings'
 
 interface Props {
 	accountId : string,
@@ -17,6 +19,13 @@ function ProfileHeader({
 	imgUrl,
 	bio,
 } : Props) {
+
+	const isAuthUserProfile = accountId == authUserId
+
+	function handleSettingsClick(){
+		window.Clerk.openUserProfile()
+	}
+
 	return (
 		<article className='
 				w-full 
@@ -33,10 +42,18 @@ function ProfileHeader({
 						fill
 					/>
 				</div>
-				<div>
-					<p className='text-xl font-semibold'>{name}</p>
-					<p className='text-sm text-neutral-400'>@{username}</p>
+				<div className='grow flex justify-between items-center'>
+					<div>
+						<p className='text-xl font-semibold'>{name}</p>
+						<p className='text-sm text-neutral-400'>@{username}</p>
+					</div>
+					{isAuthUserProfile && 
+						<ProfileSettings>
+							Settings	
+						</ProfileSettings>
+					}
 				</div>
+
 			</div>
 			<div className='text-sm'>
 				{bio}

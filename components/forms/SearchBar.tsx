@@ -19,13 +19,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-interface Props {
-	currentUserId: string,
-}
-
-function SearchBar({
-  currentUserId,
-} : Props){
+function SearchBar(){
   const router = useRouter()
 
   const form = useForm<z.infer<typeof SearchValidation>>({

@@ -8,7 +8,6 @@ export async function connectToDB(){
 	// Set strict query mode for Mongoose to prevent unknown field queries.
 	mongoose.set("strictQuery", true);
 
-	if(isConnected) return console.log('Already connected to mongoDB!')
 	if(!process.env.MONGODB_URL) return console.log('MONGODB_URL isn\'t found')
 
 	try {

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { SignedIn, SignOutButton, OrganizationSwitcher } from '@clerk/nextjs'
+import { SignedIn, SignOutButton, OrganizationSwitcher, UserButton } from '@clerk/nextjs'
 
 function Topbar(){
 	return(

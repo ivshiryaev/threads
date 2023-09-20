@@ -6,6 +6,7 @@ import Topbar from '@/components/shared/Topbar'
 import Bottombar from '@/components/shared/Bottombar'
 import LeftSidebar from '@/components/shared/LeftSidebar'
 import RightSidebar from '@/components/shared/RightSidebar'
+import {dark} from "@clerk/themes";
 
 export const metadata: Metadata = {
   title: 'Threads',
@@ -18,7 +19,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="en">
         <body>
           <Topbar/>

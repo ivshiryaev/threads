@@ -37,6 +37,7 @@ function LeftSidebar(){
 							className={`
 								leftsidebar_link
 								${isActive && 'bg-primary-500'}
+								hover:bg-dark-1
 							`}
 						>
 							<Image
@@ -58,7 +59,10 @@ function LeftSidebar(){
 						signOutCallback = 
 							{() => router.push('/sign-in')}
 					>
-						<div className='leftsidebar_link cursor-pointer'>
+						<div className='
+							leftsidebar_link cursor-pointer
+							hover:bg-dark-1
+						'>
 							<Image 
 								src='/assets/logout.svg'
 								alt='logout'
