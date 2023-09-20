@@ -2,8 +2,13 @@ import { fetchUser, fetchUsers } from '@/lib/actions/user.actions'
 import { currentUser } from '@clerk/nextjs'
 import UserCard from '@/components/cards/UserCard'
 import { redirect } from 'next/navigation'
+import SearchBar from '@/components/forms/SearchBar'
 
-async function Search() {
+async function Page({
+	searchParams,
+} : {
+	searchParams: { [key: string]: string | string[] | undefined }
+}) {
 	const user = await currentUser()
 	if(!user) return null
 
@@ -13,7 +18,7 @@ async function Search() {
 	//Fetch Users
 	const result = await fetchUsers({
 		userId: user.id,
-		searchString: '',
+		searchString: searchParams.text && searchParams.text || '',
 		pageNumber: 1,
 		pageSize: 25,
 	})
@@ -22,7 +27,7 @@ async function Search() {
 		<section className='flex flex-col grow gap-6'>
 			<h1 className='text-heading3-bold text-white'>Search</h1>
 
-			{/*Search bar*/}
+			<SearchBar/>
 
 			{result.users.length === 0 ? (
 				<p className='italic'>No users</p>
@@ -42,4 +47,4 @@ async function Search() {
 	)
 }
 
-export default Search
+export default Page

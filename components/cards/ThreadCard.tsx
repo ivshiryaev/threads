@@ -80,7 +80,7 @@ async function ThreadCard({
 							alt={author.username}
 							src={author.image}
 							fill
-							className='rounded-full'
+							className='rounded-full object-cover'
 						/>
 					</Link>
 					<div 
@@ -106,7 +106,6 @@ async function ThreadCard({
 					</p>
 					<div className={`
 						flex gap-1 mt-3
-						${isComment && 'mb-8'}
 					`}>
 						<Like 
 							userId={currentUserId} 
@@ -136,13 +135,20 @@ async function ThreadCard({
 									className='mr-[-8px]' 
 									key={comment._id}
 								>
-									<Image
-										className='rounded-full'
-										src={comment.author.image}
-										alt={comment.author.username}
-										width={20}
-										height={20}
-									/>
+									<div className='
+											relative 
+											w-5 h-5 
+											rounded-full 
+											outline outline-[2px] outline-dark-2
+										'
+									>
+										<Image
+											className='rounded-full object-cover'
+											src={comment.author.image}
+											alt={comment.author.username}
+											fill
+										/>
+									</div>
 								</div>
 							))}
 						</Link>

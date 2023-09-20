@@ -40,7 +40,7 @@ export async function createThread({
 }
 
 export async function fetchThreads(pageNumber = 1, pageSize = 20){
-	await connectToDB()
+	connectToDB()
 
 	const skipAmount = (pageNumber - 1) * pageSize
 
@@ -71,7 +71,7 @@ export async function fetchThreads(pageNumber = 1, pageSize = 20){
 }
 
 export async function fetchThreadById({id} : { id: string }){
-	await connectToDB()
+	connectToDB()
 
 	try {
 		//TODO: populate community
@@ -87,17 +87,10 @@ export async function fetchThreadById({id} : { id: string }){
 					{
 						path: 'author',
 						model: User,
-						select: '_id id username parentId image',
 					},
 					{
-						path: 'children',
-						model: Thread,
-						populate: {
-							path: 'author',
-							model: User,
-							select: '_id id username parentId image',
-						},
-					},
+						path:'children',
+					}
 				],
 			})
 			.exec()

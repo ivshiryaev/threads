@@ -29,20 +29,20 @@ async function Thread({ params } : { params : { id : string }}) {
 		        author={thread.author}
 		        community={thread.community}
 		        createdAt={thread.createdAt}
-		        comments={thread.comments}
+		        comments={thread.children}
 			/>
 			<Comment
 				threadId={thread.id}
 				currentUserId={userInfo._id.toString()}
 				currentUserImage={userInfo.image}
 			/>
-			<div className='text-white flex flex-col'>
+			<div className='text-white flex flex-col gap-4'>
 				{thread.children.map(childItem => {
 					return(
 						<ThreadCard
 							key={childItem._id}	
-							id={childItem._id}
-							currentUserId={childItem?.id}
+							id={childItem._id.toString()}
+							currentUserId={userInfo._id.toString()}
 							parentId={childItem?.parentId}
 							content={childItem.text}
 							author={childItem.author}

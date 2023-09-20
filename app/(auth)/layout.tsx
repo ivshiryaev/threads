@@ -18,7 +18,8 @@ export default function RootLayout({
         <body className='
             min-h-screen 
             flex flex-col justify-center items-center
-            bg-dark-2 
+            bg-dark-2
+            py-8
           '
         >
           {children}
