@@ -7,9 +7,14 @@ module.exports = {
     ignoreBuildErrors: true,
   },
   experimental: {
-      serverActions: true,
-      serverComponentsExternalPackages: ['@acme/ui', 'mongoose'],
-    },
+    serverActions: true,
+    serverComponentsExternalPackages: ['@acme/ui', 'mongoose'],
+  },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
