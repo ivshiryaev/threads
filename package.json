@@ -2,6 +2,9 @@
   "name": "threads-app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -29,6 +32,7 @@
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.1",
     "next": "13.4.19",
+    "node-fetch": "^3.3.2",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
